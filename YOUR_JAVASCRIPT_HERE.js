@@ -83,8 +83,7 @@ function changeName () {
     heroNameDisplay.innerText = `${hero.name}`;c
 }
 
-// Shows player their hero's information.
-displayStats();
+
 
 // Enemy class. Used to quickly create enemy objects.
 
@@ -227,6 +226,9 @@ function endCurrentEncounter () {
     encounterImage.style.opacity = "0";
     setTimeout(generateNextEncounter(), 1000)
 }
+
+// Shows player their hero's information.
+displayStats();
 
 
 
