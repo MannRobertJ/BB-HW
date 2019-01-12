@@ -29,8 +29,7 @@ const hero = {
 // Restore's the hero's health.
 function rest (object) {
     object.health = 10;
-    const heroHealthDisplay = document.getElementById('hero-health-display');
-    heroHealthDisplay.innerHTML = `${hero.health}`;
+    displayStats();
     return object;
 }
 // Makes the hero to pick up an item and add to inventory.
@@ -47,27 +46,20 @@ function equipWeapon (hero) {
         hero.weapon = hero.inventory[0];
     } 
     // Displays the current weapon. 
-    const heroWeaponDisplay = document.getElementById("hero-weapon-display");
-    const heroDamageDisplay = document.getElementById("hero-damage-display");
-    heroWeaponDisplay.innerHTML = `${hero.weapon.type}`;
-    heroDamageDisplay.innerHTML = `${hero.weapon.damage}`;
+    displayStats();
     // The weapon is no longer in the inventory. 
     hero.inventory.shift();
 }
 
 // Function to show player their hero's information. 
 function displayStats () {
-    const gameDisplay = document.getElementById('game');
-    // Creates the paragraph where the information will be shown.
-    const stats = document.createElement('p');
-    // Adds the paragraph to the webpage.
-    gameDisplay.appendChild(stats);
+    const heroStats = document.getElementById('hero-stats');
     // What will exist between the <p> and </p> tags in the html file. Span tags are there so we can later do stuff to individual bits of the text. 
-    stats.innerHTML = `Name: <span id="hero-name-display"}>${hero.name}</span> <br> 
-                       Heroic: <span id="hero-heroic-display"}>${hero.heroic}</span> <br> 
-                       Health: <span id="hero-health-display"}>${hero.health}</span> <br>
-                       Type of weapon: <span id="hero-weapon-display"}>${hero.weapon.type}</span> <br>
-                       Weapon damage: <span id="hero-damage-display"}>${hero.weapon.damage}</span>`
+    heroStats.innerHTML = `Name: ${hero.name} <br> 
+                           Heroic: ${hero.heroic} <br> 
+                           Health: ${hero.health} <br>
+                           Type of weapon: ${hero.weapon.type}<br>
+                           Weapon damage: ${hero.weapon.damage}`
 }
 
 function changeName () {
@@ -79,8 +71,7 @@ function changeName () {
     document.getElementById('new-name').placeholder = "New name?"
     document.getElementById('new-name').value = null;
     // Displays new name in place of old one. 
-    const heroNameDisplay = document.getElementById("hero-name-display");
-    heroNameDisplay.innerText = `${hero.name}`;c
+    displayStats();
 }
 
 
@@ -100,7 +91,7 @@ class Enemy {
 // Spider has health 1 initially. 
 let spiderBaseHealth = 1; 
 const spider = new Enemy ('Tom the Tarantula', spiderBaseHealth, 2, "./spider.jpg");
-const redPanda = new Enemy ('Roos the Red Panda', 11, 11, "./redpanda.jpg");
+const redPanda = new Enemy ('Roos the Red Panda', 11, 11, "./redPanda.jpg");
 
 // Class to declare weapons with. 
 class Weapon {
@@ -127,6 +118,9 @@ let alreadyCheated = false;
 
 // Function to change nextEncounter. 
 function generateNextEncounter () {
+    if (nextEncounter === 'game over') {
+        return false;
+    }
     // After clicking the image becomes invisible. This makes it visible again. 
     encounterImage.style.opacity = "1";
     // Generates random integer from 0 to 7.
@@ -135,6 +129,7 @@ function generateNextEncounter () {
     if (encounterIndex === 7) {
         nextEncounter = 'weapon';
         encounterImage.src = "./gun.jpg"
+        encounterImage.alt = "a picture of a gun"
     } else {
         nextEncounter = 'enemy';
         generateEnemy();
@@ -148,7 +143,6 @@ function dealWithEncounter () {
     } else {
         fight(nextEnemy);
     }
-    endCurrentEncounter();
 }
 
 // Decides what to fight.
@@ -157,10 +151,12 @@ function generateEnemy () {
     const enemyIndex = Math.floor(Math.random() * 20);
     if (enemyIndex === 19) {
         nextEnemy = redPanda;
-        encounterImage.src = `./redPanda.jpg`;
+        encounterImage.src = './redPanda.jpg';
+        encounterImage.alt = 'a picture of a red panda'
     } else {
         nextEnemy = spider;
-        encounterImage.src = `./spider.jpg`;
+        encounterImage.src = './spider.jpg';
+        encounterImage.alt = 'a picture of a spider'
     }
     
 }
@@ -178,14 +174,13 @@ function fight(enemy) {
     // If the player kills a spider. 
     if (enemy.health < 1 && enemy === spider) {
         // Scolds the player.
-        if (hero.heroic === true) {alert('You killed Tom! That wasn\'t very heroic of you...')};
+        if (hero.heroic === true) {alert('You killed it! That wasn\'t very heroic of you...')};
         // They are no longer heroic. 
         hero.heroic = false;
-        const heroHeroicDisplay = document.getElementById('hero-heroic-display');
-        heroHeroicDisplay.innerText = `${hero.heroic}`;
+        displayStats();
         spiderBaseHealth ++;
-        
         endCurrentEncounter();
+        spider.health = spiderBaseHealth;
     }
     // If the player kills a red panda (impossible without cheating).
     if (enemy.health < 1 && enemy === redPanda) {
@@ -196,8 +191,7 @@ function fight(enemy) {
         };
         // They are no longer heroic. 
         hero.heroic = false;
-        const heroHeroicDisplay = document.getElementById('hero-heroic-display');
-        heroHeroicDisplay.innerText = `${hero.heroic}`;
+        displayStats();
         endCurrentEncounter();
     }
     // The enemy may now attack the player if not dead. 
@@ -210,21 +204,14 @@ function fight(enemy) {
             nextEncounter = "game over"
             // Want nothing else to happen. 
             return false;
-    } else {
-        generateNextEncounter();
+        } 
     }
-    }
-    // Next spider will be full health.
-    spider.health = spiderBaseHealth;
-    // Updates hero health on screen. 
-    const playerHealthDisplay = document.getElementById('hero-health-display');
-    playerHealthDisplay.innerText = `${hero.health}`;
 }
 
 function endCurrentEncounter () {
     // Instead of removing image truly, it becomes totally transparent for a second. Deleting seemed overly complicated.
     encounterImage.style.opacity = "0";
-    setTimeout(generateNextEncounter(), 1000)
+    setTimeout(generateNextEncounter, 1000)
 }
 
 // Shows player their hero's information.
