@@ -140,8 +140,12 @@ function generateNextEncounter () {
 function dealWithEncounter () {
     if (nextEncounter === 'weapon') {
         pickUpWeapon();
-    } else {
+    } 
+    if (nextEncounter === 'enemy') {
         fight(nextEnemy);
+    }
+    if (nextEncounter === 'game-over') {
+        alert('just refresh the page');
     }
 }
 
@@ -177,7 +181,6 @@ function fight(enemy) {
         if (hero.heroic === true) {alert('You killed it! That wasn\'t very heroic of you...')};
         // They are no longer heroic. 
         hero.heroic = false;
-        displayStats();
         spiderBaseHealth ++;
         endCurrentEncounter();
         spider.health = spiderBaseHealth;
@@ -191,7 +194,6 @@ function fight(enemy) {
         };
         // They are no longer heroic. 
         hero.heroic = false;
-        displayStats();
         endCurrentEncounter();
     }
     // The enemy may now attack the player if not dead. 
@@ -201,11 +203,13 @@ function fight(enemy) {
         if (hero.health < 1) {
             alert('Bad luck. Refresh the page to try again.')
             encounterImage.src = "./gameover.jpg";
+            encounterImage.alt = "game over"
             nextEncounter = "game over"
             // Want nothing else to happen. 
-            return false;
+            return false; 
         } 
     }
+    displayStats();
 }
 
 function endCurrentEncounter () {
