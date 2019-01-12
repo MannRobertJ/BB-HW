@@ -3,19 +3,21 @@
     <meta charset="utf-8">
     <title>Mocha Tests</title>
     <link href="https://unpkg.com/mocha@4.0.1/mocha.css" rel="stylesheet" />
+    <link rel="stylesheet" href="index.css" type="text/css">
 </head>
 <body>
 
 
   <!-- YOUR HTML HERE -->
+
   <!-- Picture of an inn. When the player clicks here, their hero will rest i.e. heal. -->
-  <img id="inn" onclick="rest(hero)" src="" alt="">
+  <img class="picture" id="inn" onclick="rest(hero)" src="./inn.jpg" alt="Goldshire Inn from the game World of Warcraft">
 
   <!-- Picture of a dagger. When the player clicks here, their hero will pick up a dagger. -->
-  <img id="dagger" onclick="pickUpItem(hero,dagger)" src="" alt="">
+  <img class="picture" id="dagger" onclick="pickUpItem(hero,dagger)" src="./dagger.jpg" alt="A black dagger.">
 
   <!-- Picture of a bag. When the player clicks here, their hero will equip the first item from their inventory as their weapon. -->
-  <img id="bag" onclick="equipWeapon(hero)" src="" alt="">
+  <img class="picture" id="bag" onclick="equipWeapon(hero)" src="./bag.jpeg" alt="A green canvass bag.">
 
 
   <!-- I RECOMMEND YOU LEAVE THE REST UNTOUCHED -->
