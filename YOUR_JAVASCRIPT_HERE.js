@@ -42,3 +42,24 @@ function equipWeapon (hero) {
     } 
 }
 
+// Function to show player their hero's information. 
+function displayStats () {
+    const gameDisplay = document.getElementById('game');
+    // Creates the paragraph where the information will be shown.
+    const paragraph = document.createElement('p');
+    // Adds the paragraph to the webpage.
+    gameDisplay.appendChild(paragraph);
+    // What will exist between the <p> and </p> tags in the html file. 
+    paragraph.innerHTML = `Name: ${hero.name}, <br> Health: ${hero.health}, <br>Type of weapon: ${hero.weapon.type}, <br>Weapon damage: ${hero.weapon.damage}`
+    // Need to give the paragraph an id so that the changeName function can do stuff to it.
+    paragraph.id = "heroStats"
+}
+
+function changeName () {
+    // Stores what the player types into the form as a string. 
+    console.log(hero.name);
+}
+
+// Shows player their hero's information.
+displayStats();
+
