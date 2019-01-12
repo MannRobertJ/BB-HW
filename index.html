@@ -10,14 +10,20 @@
 
   <!-- YOUR HTML HERE -->
 
-  <!-- Picture of an inn. When the player clicks here, their hero will rest i.e. heal. -->
-  <img class="picture" id="inn" onclick="rest(hero)" src="./inn.jpg" alt="Goldshire Inn from the game World of Warcraft">
-
-  <!-- Picture of a dagger. When the player clicks here, their hero will pick up a dagger. -->
-  <img class="picture" id="dagger" onclick="pickUpItem(hero,dagger)" src="./dagger.jpg" alt="A black dagger.">
-
-  <!-- Picture of a bag. When the player clicks here, their hero will equip the first item from their inventory as their weapon. -->
-  <img class="picture" id="bag" onclick="equipWeapon(hero)" src="./bag.jpeg" alt="A green canvass bag.">
+  <section id="game">
+    <form onsubmit="changeName(); return false">
+      <input id="hero-name" type="text" placeholder="Enter your hero's name here.">
+    </form>
+  
+    <!-- Picture of an inn. When the player clicks here, their hero will rest i.e. heal. -->
+    <img class="picture" id="inn" onclick="rest(hero)" src="./inn.jpg" alt="Goldshire Inn from the game World of Warcraft">
+  
+    <!-- Picture of a dagger. When the player clicks here, their hero will pick up a dagger. -->
+    <img class="picture" id="dagger" onclick="pickUpItem(hero,dagger)" src="./dagger.jpg" alt="A black dagger.">
+  
+    <!-- Picture of a bag. When the player clicks here, their hero will equip the first item from their inventory as their weapon. -->
+    <img class="picture" id="bag" onclick="equipWeapon(hero)" src="./bag.jpeg" alt="A green canvass bag.">
+  </section>
 
 
   <!-- I RECOMMEND YOU LEAVE THE REST UNTOUCHED -->
