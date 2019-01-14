@@ -162,7 +162,6 @@ function generateEnemy () {
         encounterImage.src = './spider.jpg';
         encounterImage.alt = 'a picture of a spider'
     }
-    
 }
 
 // Adds weapon to inventory.
